@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>ERROR EN LA QUERY AL REGISTRARSE</h1>
-    <a href="../../index.php">Volver</a>
+    <h1>ERRORE EN EL TWEET</h1>
 </body>
 </html>

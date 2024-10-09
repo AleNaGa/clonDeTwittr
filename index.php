@@ -23,7 +23,7 @@ include_once("scripts/connection/connection.php");
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
-        <input type="submit" class="m-3 btn btn-primary" value="submit">
+        <input type="submit" value="submit">
     </form>
 
     <a href="./main/singUpForm.php">Registro</a>

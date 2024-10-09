@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>ERROR EN EL LOGIN</h1>
+    <a href="../../index.php">Volver</a>
 </body>
 </html>

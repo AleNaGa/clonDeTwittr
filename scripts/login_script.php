@@ -8,7 +8,6 @@ if(isset($_POST)){
     $res = mysqli_query($connect, $sql);
 
     if($res && mysqli_num_rows($res) ==1){//saber si hay 1 usuario llamado asi
-        echo "Usuario Correcto";
         $username = mysqli_fetch_assoc($res);
         if(password_verify($password, $username["password"])){
             session_start();
@@ -18,11 +17,11 @@ if(isset($_POST)){
             echo "Bienvenido";
         }else{
             header("Location: ../../../errors/loginErrors/errorLoginPsswrdIncorrect.php");
-            echo "Contraseña Incorrecta";
+           
         }
     }else{
         header("Location:../../../errors/loginErrors/errorLoginUserIncorrect.php");
-        echo "Usuario Incorrecto";
+       
     }
 }
 else{
