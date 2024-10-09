@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>ERROR EN LA QUERY AL REGISTRARSE</h1>
+    <a href="../../index.php">Volver</a>
 </body>
 </html>
