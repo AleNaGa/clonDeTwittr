@@ -19,16 +19,17 @@ session_start();
     <title>Document</title>
 </head>
 <body>
-    <p>
+    <header>
+        <a href="profile/profile.php">perfil</a>
+        <a href="../scripts/logout_script.php">Logout</a>
+    </header>
         <!-- comprobar sesion -->
         <?php
 
             include_once("../scripts/connection/connection.php");
             $connect = connection();
 
-            if (isset($_SESSION["username"])) {
-                echo "Bienvenido ".$_SESSION["username"];
-            } else {
+            if (!isset($_SESSION["username"])) {
                 header("Location: ../../index.php");
             }
             $username = $_SESSION["username"];
@@ -39,7 +40,7 @@ session_start();
             $description = $user["description"];
       
 
-         // TWEETS del USUARIO
+         // TWEETS del USUARIO y sus seguidos
            $tweetsQuery = "SELECT * FROM publications WHERE userId = $id or userId in (select userToFollowId from follows where users_Id = $id) order by createDate asc";
            $resTweets = mysqli_query($connect, $tweetsQuery);
            $tweetsTable =  mysqli_fetch_assoc($res);
@@ -51,21 +52,26 @@ session_start();
           
           
          ?>
-        
-    </p>
     <section class="main">
         <!-- El usuario-->
             <div class ="user">
-                <h5><?php echo $username; ?></h5>
-                <p><?php if(empty($description)){
-                    echo "No hay descripción";
-                }else{
-                    echo $description;
-                } ?></p>
-                <a href="profile/profile.php?id=<?php echo $id;?>" ><button>Profile</button></a>
-                <a href="../scripts/logout_script.php"><button>Logout</button></a>
+                <h2><a href="profile/profile.php?id=<?php echo $id;?>"><?php echo $username; ?></a></h2>
+                <div clas="descripcion">
+                    <p><?php if(empty($description)){
+                        echo "No hay descripción";
+                    }else{
+                        echo $description;
+                    } ?></p>
+                </div>
             </div>
-            <!-- Tus tweets -->
+          <!-- nuevo tweet -->
+          <div class="new-tweet">
+                <form action="../scripts/tweet/newTweet_script.php" method="POST">
+                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
+                    <input type="submit" value="Tweet">
+                </form>
+            </div>
+            <!--los tweets -->
             <div class="tweets">
                 <h5>Tweets</h5>
                 <?php while($row = mysqli_fetch_array($resTweets)): ?>
@@ -84,16 +90,6 @@ session_start();
                     </div>
                 <?php endwhile; ?>
             </div>
-            <!-- nuevo tweet -->
-            <div class="new-tweet">
-                <form action="../scripts/tweet/newTweet_script.php" method="POST">
-                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
-                    <input type="submit" value="Tweet">
-                </form>
-            </div>
-
-
-
     </section>
     <div>
         <!-- EL RESTO DE GENTE -->
@@ -113,11 +109,6 @@ session_start();
                         </p>
                     </div>
                 <?php endwhile; ?>
-    </div>
-
-
-
-    <!-- cerrar sesion -->
-    <a href="../scripts/logout_script.php">Logout</a>
+    </div>  
 </body>
 </html>
