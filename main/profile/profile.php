@@ -49,7 +49,15 @@ $follows = mysqli_fetch_assoc($res);
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <a href="../main.php">Home</a>
+        <?php if($id!=$thisId){?>
+            <a href="profile.php">perfil</a>
+        <?php }?>
+        <a href="../scripts/logout_script.php">Logout</a>
+    </header>
 
+    <section class="main">
         <div>
             <h3><?php echo $thisUsername; ?></h3>
             <p><?php if(empty($description)){
@@ -58,24 +66,7 @@ $follows = mysqli_fetch_assoc($res);
                     echo $description;
                 } ?></p>
         </div>
-        <!-- Seguidores y segiudos -->
-        <div>
-            <h5>Seguidores</h5>
-            <p><?php
-            $querySeguidores = "Select count(*) from follows where userToFollowId = $thisId";
-            $res = mysqli_query($connect, $querySeguidores);
-            $seguidores = mysqli_fetch_assoc($res);
-            echo $seguidores["count(*)"];
-            ?></p>
-             <h5>Seguidos</h5>
-            <p><?php
-            $querySeguidos = "Select count(*) from follows where users_id= $thisId";
-            $res = mysqli_query($connect, $querySeguidos);
-            $seguidos = mysqli_fetch_assoc($res);
-            echo $seguidos["count(*)"];
-            ?></p>
-        </div>
-    <?php if($id===$thisId){?>
+        <?php if($id===$thisId){?>
             <form action="../../scripts/profile/editDescription.php?id=<?php echo $id;?>" method="POST">
                 <input type="text" name="description" id="description" requiered pattern="^.{1,280}$" placeholder="Maximo 280 caracteres">
                 <input type="submit" value="Editar descripción">
@@ -96,6 +87,46 @@ $follows = mysqli_fetch_assoc($res);
         </form>
     </div>
     <?php }?>
-    <button><a href="../main.php">Volver</a></button>
+        <!-- Seguidores y segiudos -->
+        <div>
+            <a href="followers.php?id=<?php echo $thisId;?>"><h5>Seguidores</h5></a>
+            <p><?php
+            $querySeguidores = "Select count(*) from follows where userToFollowId = $thisId";
+            $res = mysqli_query($connect, $querySeguidores);
+            $seguidores = mysqli_fetch_assoc($res);
+            echo $seguidores["count(*)"];
+            ?></p>
+             <a href="following.php?id=<?php echo $thisId;?>"><h5>Seguidos</h5></a>
+            <p><?php
+            $querySeguidos = "Select count(*) from follows where users_id= $thisId";
+            $res = mysqli_query($connect, $querySeguidos);
+            $seguidos = mysqli_fetch_assoc($res);
+            echo $seguidos["count(*)"];
+            ?></p>
+        </div>
+   
+    <div class="Tweets del usuario">
+        <h4>Tweets</h4>
+            <?php
+                $tweetsQuery = "SELECT * FROM publications WHERE userId = $thisId order by createDate desc;";
+                $resTweets = mysqli_query($connect, $tweetsQuery);
+            ?>
+                <?php while($row = mysqli_fetch_array($resTweets)): ?>
+                    <div class="tweet">
+                            <?php //invocar el tuitero
+                            $tweeteroQuery = "Select * from users where id = $row[userId]";
+                            $resTweetero = mysqli_query($connect, $tweeteroQuery);
+                            $tweetero = mysqli_fetch_assoc($resTweetero);
+                            ?>
+                        <a href="profile.php?id=<?php echo $row["userId"];?>">
+                            <p><?php echo $tweetero["username"]; ?></p>
+                        </a>
+                        <p>
+                            <?php echo $row["text"]; ?>
+                        </p>
+                    </div>
+                <?php endwhile; ?>
+    </div>
+    </section>
 </body>
 </html>
