@@ -108,7 +108,7 @@ $follows = mysqli_fetch_assoc($res);
     <div class="Tweets del usuario">
         <h4>Tweets</h4>
             <?php
-                $tweetsQuery = "SELECT * FROM publications WHERE userId = $thisId order by createDate desc;";
+                $tweetsQuery = "SELECT * FROM publications WHERE userId = $thisId order by createDate;";
                 $resTweets = mysqli_query($connect, $tweetsQuery);
             ?>
                 <?php while($row = mysqli_fetch_array($resTweets)): ?>
