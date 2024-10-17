@@ -31,13 +31,13 @@ $thisUsername = $usernameQuery["username"];
 
 
 //descripcion del usuario
-$queryDesc = "SELECT description FROM social_network.users WHERE id = $thisId";
+$queryDesc = "SELECT description FROM users WHERE id = $thisId";
 $res = mysqli_query($connect, $queryDesc);
 $descriptionQuery = mysqli_fetch_assoc($res);
 $description = $descriptionQuery["description"];    
 
 //scrip para informacion de seguido
-$queryFollow = "SELECT * FROM social_network.follows;";
+$queryFollow = "SELECT * FROM follows;";
 $res = mysqli_query($connect, $queryFollow);
 $follows = mysqli_fetch_assoc($res);
 ?>
@@ -54,7 +54,7 @@ $follows = mysqli_fetch_assoc($res);
         <?php if($id!=$thisId){?>
             <a href="profile.php">perfil</a>
         <?php }?>
-        <a href="../scripts/logout_script.php">Logout</a>
+        <a href="../../scripts/logout_script.php">Logout</a>
     </header>
 
     <section class="main">

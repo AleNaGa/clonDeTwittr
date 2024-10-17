@@ -5,7 +5,7 @@ function connection(){
     $user = "root";
     $pass = "root";
 
-    $bd = "social_network";
+    $bd = "twitter_clone";
 
     $connect=mysqli_connect($host, $user, $pass);
 

@@ -25,7 +25,7 @@ $thisUsername = $usernameQuery["username"];
  
 
 //scrip para informacion de seguidores
-$queryFollow = "Select * from users where id in (SELECT users_id FROM social_network.follows where userToFollowId = $thisId);";
+$queryFollow = "Select * from users where id in (SELECT users_id FROM follows where userToFollowId = $thisId);";
 $resFollowers = mysqli_query($connect, $queryFollow);
 ?>
 <!DOCTYPE html>

@@ -144,6 +144,6 @@ session_start();
                         </p>
                     </div>
                 <?php endwhile; ?>
-    </div>  
+    </div>
 </body>
 </html>
