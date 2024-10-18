@@ -104,6 +104,14 @@ session_start();
                         <p>
                             <?php echo $row["text"]; ?>
                         </p>
+                        <button href="../scripts/tweet/darLike_script.php?id=<?php echo $row["id"];?>" name="like">Like</button>
+                        <p><?php 
+                        //NUMERO DE LIKES
+                        $query = "SELECT count(*) FROM likes where publication_Id = $row[id]";
+                        $res = mysqli_query($connect, $query);
+                        $likes = mysqli_fetch_assoc($res);
+                        echo $likes["count(*)"];
+                        ?></p>
                     </div>
                 <?php endwhile; ?>
             </div>
