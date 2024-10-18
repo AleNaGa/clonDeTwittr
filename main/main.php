@@ -41,12 +41,12 @@ session_start();
       
 
          // TWEETS del USUARIO y sus seguidos
-           $tweetsQuery = "SELECT * FROM publications WHERE userId = $id or userId in (select userToFollowId from follows where users_Id = $id) order by createDate asc";
+           $tweetsQuery = "SELECT * FROM publications WHERE userId = $id or userId in (select userToFollowId from follows where users_Id = $id) order by createDate desc;";
            $resTweets = mysqli_query($connect, $tweetsQuery);
            $tweetsTable =  mysqli_fetch_assoc($res);
 
            //Otros Tweets
-           $otherTweetsQuery = "SELECT * FROM publications WHERE userId != $id and userId not in (select userToFollowId from follows where users_Id = $id) order by createDate asc";
+           $otherTweetsQuery = "SELECT * FROM publications WHERE userId != $id and userId not in (select userToFollowId from follows where users_Id = $id) order by createDate desc;";
            $resOtherTweets = mysqli_query($connect, $otherTweetsQuery);
            $otherTweetsTable =  mysqli_fetch_assoc($res);
           
@@ -64,13 +64,13 @@ session_start();
                     } ?></p>
                 </div>
             </div>
-          <!-- nuevo tweet -->
-          <div class="new-tweet">
-                <form action="../scripts/tweet/newTweet_script.php" method="POST">
-                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
-                    <input type="submit" value="Tweet">
-                </form>
-            </div>
+        <!-- nuevo tweet -->
+        <div class="new-tweet">
+            <form action="../scripts/tweet/newTweet_script.php" method="POST">
+                <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
+                <input type="submit" value="Tweet">
+            </form>
+        </div>
             <!--los tweets -->
             <div class="tweets">
                 <h5>Tweets</h5>
@@ -84,9 +84,34 @@ session_start();
                         <a href="profile/profile.php?id=<?php echo $row["userId"];?>">
                             <p><?php echo $tweetero["username"]; ?></p>
                         </a>
+                        <p><?php 
+                        //LA FEHCA DEL TWEET
+                        
+                        $time= $row["createDate"]; 
+                        $curr = date("Y-m-d H:i");
+                        $diff = strtotime($curr) - strtotime($time);
+                        $days = floor($diff / 86400);
+                        $hours = floor($diff / 3600);
+                        if($days >= 1){
+                            echo $days." days ago";
+                        }else if($hours >= 1){
+                            echo $hours." hours ago";
+                        }else{
+                            echo "ahora mismo";
+                        }
+
+                        ?></p>
                         <p>
                             <?php echo $row["text"]; ?>
                         </p>
+                        <button href="../scripts/tweet/darLike_script.php?id=<?php echo $row["id"];?>" name="like">Like</button>
+                        <p><?php 
+                        //NUMERO DE LIKES
+                        $query = "SELECT count(*) FROM likes where publication_Id = $row[id]";
+                        $res = mysqli_query($connect, $query);
+                        $likes = mysqli_fetch_assoc($res);
+                        echo $likes["count(*)"];
+                        ?></p>
                     </div>
                 <?php endwhile; ?>
             </div>
@@ -101,14 +126,32 @@ session_start();
                          $resTweetero = mysqli_query($connect, $tweeteroQuery);
                          $tweetero = mysqli_fetch_assoc($resTweetero);
                         ?>
-                        <a href="profile/profile.php?id=<?php echo $row["userId"];?>">
+                        <a href="profile/profile.php?id=<?php echo $row["userId"];?>" class="tuitero">
                             <p><?php echo $tweetero["username"]; ?></p>
                         </a>
-                        <p>
+                        
+                        <p class="date"><?php 
+                        //LA FEHCA DEL TWEET
+                        
+                        $time= $row["createDate"]; 
+                        $curr = date("Y-m-d H:i");
+                        $diff = strtotime($curr) - strtotime($time);
+                        $days = floor($diff / 86400);
+                        $hours = floor($diff / 3600);
+                        if($days >= 1){
+                            echo $days." days ago";
+                        }else if($hours >= 1){
+                            echo $hours." hours ago";
+                        }else{
+                            echo "ahora mismo";
+                        }
+
+                        ?></p>
+                        <p class="text">
                             <?php echo $row["text"]; ?>
                         </p>
                     </div>
                 <?php endwhile; ?>
-    </div>  
+    </div>
 </body>
 </html>
