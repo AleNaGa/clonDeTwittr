@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+body{
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+form{
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo con opacidad del 10% */
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+}
+.form-group{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+label{
+    margin: 10px;
+}
+input{
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+}

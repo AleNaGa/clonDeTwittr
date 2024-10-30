@@ -10,10 +10,14 @@ include_once("scripts/connection/connection.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
     <title>Index</title>
 </head>
 <body>
+    <div></div>
     <!-- formulario de login -->
+    <div class="formContainer">
     <form action="scripts/login_script.php" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
@@ -23,10 +27,19 @@ include_once("scripts/connection/connection.php");
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
         </div>
-        <input type="submit" value="submit">
+        <div class="buttons">
+            <div class="button">
+                <input type="submit" value="Entrar">
+            </div>
+            <div class="button">
+                <a href="./main/singUpForm.php">Registrarse</a>
+            </div>
+        </div>
     </form>
+    </div>
+    <div></div>
 
-    <a href="./main/singUpForm.php">Registro</a>
+  
 
 </body>
 </html>
