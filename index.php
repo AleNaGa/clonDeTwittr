@@ -10,12 +10,12 @@ include_once("scripts/connection/connection.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
-    <title>Index</title>
+    <title>Inicio</title>
 </head>
 <body>
-    <div></div>
+
     <!-- formulario de login -->
     <div class="formContainer">
     <form action="scripts/login_script.php" method="POST">
@@ -32,12 +32,12 @@ include_once("scripts/connection/connection.php");
                 <input type="submit" value="Entrar">
             </div>
             <div class="button">
-                <a href="./main/singUpForm.php">Registrarse</a>
+                <input type="submit" action="./main/singUpForm.php" value="Registrarse">
             </div>
         </div>
     </form>
     </div>
-    <div></div>
+
 
   
 

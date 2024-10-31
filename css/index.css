@@ -7,6 +7,7 @@
 }
 
 body{
+    background-image: url("img/bg.PNG");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -30,16 +31,50 @@ form{
     backdrop-filter: blur(10px); /* Efecto de desenfoque */
 }
 .form-group{
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
 }
 label{
     margin: 10px;
 }
 input{
-    margin: 10px;
-    border-radius: 5px;
+    width: 100%;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
     border: none;
-    padding: 5px;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo de los campos */
+    font-size: 14px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    gap: 10px;
+    border: none;
+    border-radius: 100px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.button{
+    background-color: #e57373; /* Color de fondo para "Entrar" */
+    border-radius: 150px;
+    height: 40px;
+    width: 150px;
+    cursor: pointer;
+    color: white;
+}
+.button > input{
+    background-color:none; /* Color de fondo para "Entrar" */
+    font-weight: 600;
+}
+
+.entrar:hover,
+.registrarse:hover {
+    opacity: 0.8;
 }
