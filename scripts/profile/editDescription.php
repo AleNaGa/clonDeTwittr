@@ -11,7 +11,7 @@ if(isset($_POST["description"])){
         $sql = "UPDATE users SET description = '$text' WHERE id = '$userId'";
         $guardar = mysqli_query($connect, $sql);
         if($guardar){
-            header("Location: ../../../../main/profile/profile.php");
+            header("Location: ../../../../main/profile.php");
         }else{
             header("Location: ../../errors/TweetErrors/errorTweet.php");
         }

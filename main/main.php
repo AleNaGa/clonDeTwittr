@@ -16,18 +16,27 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Feed</title>
 </head>
 <body>
     <header>
-        <a href="profile/profile.php">perfil</a>
-        <a href="../scripts/logout_script.php">Logout</a>
+        <nav>
+            <ul>
+                <li><a href="profile.php">Perfil</a></li>
+                <li> <a href="interactions.php">Interacciones</a></li>
+                <li><a href="../scripts/logout_script.php">Logout</a></li>
+            </ul>
+        </nav>
     </header>
         <!-- comprobar sesion -->
         <?php
 
             include_once("../scripts/connection/connection.php");
             $connect = connection();
+            include_once('../scripts/tweet/renderTweets_script.php');
+            $render=new TweetRenderer($connect , "../../main/main.php");
 
             if (!isset($_SESSION["username"])) {
                 header("Location: ../../index.php");
@@ -41,74 +50,68 @@ session_start();
       
 
          // TWEETS del USUARIO y sus seguidos
-           $tweetsQuery = "SELECT * FROM publications WHERE userId = $id or userId in (select userToFollowId from follows where users_Id = $id) order by createDate asc";
+           $tweetsQuery = "SELECT * FROM publications WHERE userId = $id or userId in (select userToFollow from follows where users_id = $id) order by createDate desc;";
            $resTweets = mysqli_query($connect, $tweetsQuery);
-           $tweetsTable =  mysqli_fetch_assoc($res);
 
            //Otros Tweets
-           $otherTweetsQuery = "SELECT * FROM publications WHERE userId != $id and userId not in (select userToFollowId from follows where users_Id = $id) order by createDate asc";
+           $otherTweetsQuery = "SELECT * FROM publications WHERE userId != $id and userId not in (select userToFollow from follows where users_id = $id) order by createDate desc;";
            $resOtherTweets = mysqli_query($connect, $otherTweetsQuery);
-           $otherTweetsTable =  mysqli_fetch_assoc($res);
           
           
          ?>
     <section class="main">
+        <div class="container">
+        <div class="user-tuitear">
         <!-- El usuario-->
-            <div class ="user">
-                <h2><a href="profile/profile.php?id=<?php echo $id;?>"><?php echo $username; ?></a></h2>
-                <div clas="descripcion">
-                    <p><?php if(empty($description)){
-                        echo "No hay descripción";
-                    }else{
-                        echo $description;
-                    } ?></p>
+            <div class="user-info">
+                <div class ="user">
+                    <h2><a href="profile.php?id=<?php echo $id;?>"><?php echo $username; ?></a></h2>
+                    <div class="descripcion">
+                        <p class="constrainText"><?php if(empty($description)){
+                            echo "No hay descripción";
+                        }else{
+                            echo $description;
+                        } ?></p>
+                    </div>
                 </div>
             </div>
-          <!-- nuevo tweet -->
-          <div class="new-tweet">
-                <form action="../scripts/tweet/newTweet_script.php" method="POST">
-                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
-                    <input type="submit" value="Tweet">
+        <!-- nuevo tweet -->
+            <div class="new-tweet">
+                <form action="../scripts/tweet/newTweet_script.php" method="POST" class="tuitear">
+                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres" class="text">
+                    <div class="button">
+                        <input type="submit" value="Tweet">
+                    </div>
                 </form>
             </div>
+        </div>
+        </div>
             <!--los tweets -->
+            <div class="container">
             <div class="tweets">
-                <h5>Tweets</h5>
-                <?php while($row = mysqli_fetch_array($resTweets)): ?>
-                    <div class="tweet">
-                        <?php //invocar el tuitero
-                        $tweeteroQuery = "Select * from users where id = $row[userId]";
-                         $resTweetero = mysqli_query($connect, $tweeteroQuery);
-                         $tweetero = mysqli_fetch_assoc($resTweetero);
+                <?php
+                    if (mysqli_num_rows($resTweets) > 0) {
+                    $render->renderTweets($resTweets);
+                    } else {
+                        echo '<p>No hay tweets para mostrar.</p>';
+                    }
+                ?>
+            </div>
+            </div>
+            <div class="container">
+                <div class="tweets">
+                    <h3>Te puede interesar...</h3>
+                    <!-- EL RESTO DE GENTE -->
+                        <?php
+                            if (mysqli_num_rows($resOtherTweets) > 0) {
+                                $render->renderTweets($resOtherTweets);
+                                } else {
+                                    echo '<div class="tweets">';
+                                    echo '<p class="noTweet">No hay tweets para mostrar.</p>';
+                                }
                         ?>
-                        <a href="profile/profile.php?id=<?php echo $row["userId"];?>">
-                            <p><?php echo $tweetero["username"]; ?></p>
-                        </a>
-                        <p>
-                            <?php echo $row["text"]; ?>
-                        </p>
-                    </div>
-                <?php endwhile; ?>
+                </div>
             </div>
     </section>
-    <div>
-        <!-- EL RESTO DE GENTE -->
-        <h5>Other Tweets</h5>
-                <?php while($row = mysqli_fetch_array($resOtherTweets)): ?>
-                    <div class="tweet">
-                        <?php //invocar el tuitero
-                        $tweeteroQuery = "Select * from users where id = $row[userId]";
-                         $resTweetero = mysqli_query($connect, $tweeteroQuery);
-                         $tweetero = mysqli_fetch_assoc($resTweetero);
-                        ?>
-                        <a href="profile/profile.php?id=<?php echo $row["userId"];?>">
-                            <p><?php echo $tweetero["username"]; ?></p>
-                        </a>
-                        <p>
-                            <?php echo $row["text"]; ?>
-                        </p>
-                    </div>
-                <?php endwhile; ?>
-    </div>  
 </body>
 </html>
