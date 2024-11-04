@@ -42,13 +42,3 @@ CREATE TABLE likes (
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- 6. Tabla comentarios
-CREATE TABLE comments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    publication_id INT NOT NULL,
-    userId INT NOT NULL,
-    text TEXT NOT NULL,
-    comment_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (publication_id) REFERENCES publications(id) ON DELETE CASCADE,
-    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
