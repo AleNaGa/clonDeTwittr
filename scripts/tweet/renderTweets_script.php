@@ -18,13 +18,19 @@
                 $likesCount = $this->getLikesCount($row['id']);
                 $likes = new Like($this->connect, $this->redirectURL, $row['id'], $row['userId']);
                 echo '<div class="tweet">';
-                echo '<a href="profile.php?id=' . $row["userId"] . '">';
+                echo '<div class="info">';
+                echo '<a class="user" href="profile.php?id=' . $row["userId"] . '">';
                 echo '<p>' . htmlspecialchars($tweetero["username"]) . '</p>';
                 echo '</a>';
-                echo '<p>' . $timeAgo . '</p>';
-                echo '<p>' . htmlspecialchars($row["text"]) . '</p>';
+                echo '<p class="date">' . $timeAgo . '</p>';
+                echo '</div>';
+                echo '<div class="texto">';
+                echo '<p class="constrainText">' . htmlspecialchars($row["text"]) . '</p>';
+                echo '</div>';
+                echo '<div class="likes">';
                 $likes->renderLike();
-                echo '<p> numero de likes: ' .$likesCount . '</p>';
+                echo '<p class="likecount">' .$likesCount . '</p>';
+                echo '</div>';
                 echo '</div>';
             }
             echo '</div>';

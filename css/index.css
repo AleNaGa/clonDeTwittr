@@ -7,7 +7,7 @@
 }
 
 body{
-    background-image: url("img/bg.PNG");
+    background-image: url("img/indexbg.jpeg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -23,15 +23,15 @@ body{
     width: 100%;
 }
 form{
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo con opacidad del 10% */
+    background-color: rgba(255, 255, 255, 0.1); 
     padding: 20px 30px;
     border-radius: 10px;
     width: 300px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    backdrop-filter: blur(10px); 
 }
 .form-group{
-    color: white;
+    color:#D5D9DF;
     font-size: 14px;
     margin-bottom: 5px;
     display: block;
@@ -41,12 +41,12 @@ label{
 }
 input{
     width: 100%;
-    color: white;
+    color:#1d1d1e;
     padding: 10px;
     margin-bottom: 15px;
     border: none;
     border-radius: 100px;
-    background-color: rgba(255, 255, 255, 0.7); /* Fondo de los campos */
+    background-color: rgba(255, 255, 255, 0.7); 
     font-size: 14px;
 }
 
@@ -58,23 +58,38 @@ input{
     border: none;
     border-radius: 100px;
     font-size: 14px;
-    cursor: pointer;
+   
 }
 
 .button{
-    background-color: #e57373; /* Color de fondo para "Entrar" */
-    border-radius: 150px;
+    background-color: #e57373;
     height: 40px;
     width: 150px;
     cursor: pointer;
-    color: white;
+    color:#D5D9DF;
+    display: flex;
+    justify-content: center;
+    border-radius: 100px;
+   
 }
 .button > input{
-    background-color:none; /* Color de fondo para "Entrar" */
+    background-color: transparent;
     font-weight: 600;
+    cursor: pointer;
+    color:#D5D9DF;
+}
+.button > a{
+    text-decoration: none;
+    width: 100%;
+    color:#D5D9DF;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border: none;
+    font-size: 14px;
 }
 
-.entrar:hover,
-.registrarse:hover {
-    opacity: 0.8;
+.button:hover {
+    background-color: #d32f2f;
+    color:#D5D9DF
 }

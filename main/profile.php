@@ -49,6 +49,7 @@ $render = new TweetRenderer($connect, "../../main/profile.php?id=".$thisId);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/profile.css">
     <title>Perfil</title>
 </head>
 <body>
@@ -66,67 +67,88 @@ $render = new TweetRenderer($connect, "../../main/profile.php?id=".$thisId);
         </nav>
     </header>
 
-    <section class="main">
-        <div>
-            <h3><?php echo $thisUsername; ?></h3>
-            <p><?php if(empty($description)){
-                    echo "No hay descripción";
-                }else{
-                    echo $description;
-                } ?></p>
-        </div>
-        <?php if($id===$thisId){?>
-            <form action="../scripts/profile/editDescription.php?id=<?php echo $id;?>" method="POST">
-                <input type="text" name="description" id="description" requiered pattern="^.{1,280}$" placeholder="Maximo 280 caracteres">
-                <input type="submit" value="Editar descripción">
-            </form>
-    <?php }elseif($thisId==null){
-       echo "<p>ERROR</p>";
-        
-    }else{?>
-    <div>
-       <form action="../scripts/follow/seguir_script.php?id=<?php echo $thisId;?>" method="POST">
-        <!-- Saber si se siguen -->
-            <?php
-            if(doYouFollow($id,$thisId)){?>
-            <input type="submit" value="Dejar de seguir">
-            <?php }else{?>
-            <input type="submit" value="Seguir">
-            <?php }?>
-        </form>
+    <div class="main">
+        <div class="container">
+                    <div class="user-tuitear">
+                    <div class ="contenedor">
+                    <!-- El usuario-->
+                    <div class="user-info">
+                        <div class="user">
+                        <h2><?php echo $thisUsername; ?></h2>
+                        </div>
+                        <div class="descripcion">
+                        <p class="constrainText"><?php if(empty($description)){
+                                echo "No hay descripción";
+                            }else{
+                                echo $description;
+                            } ?></p>
+                        </div>
+                    </div>
+                    <div class="user-buttons">
+                    <?php if($id===$thisId){?>
+                        <form action="../scripts/profile/editDescription.php?id=<?php echo $id;?>" method="POST" class="description-form">
+                            <input type="description-box" name="description" id="description" requiered pattern="^.{1,280}$" placeholder="Maximo 280 caracteres" class="text">
+                            <input type="submit" value="Editar descripción" class="button">
+                        </form>
+                <?php }elseif($thisId==null){
+                echo "<p>ERROR</p>";
+                    
+                }else{?>
+                <div>
+                <form action="../scripts/follow/seguir_script.php?id=<?php echo $thisId;?>" method="POST">
+                    <!-- Saber si se siguen -->
+                     <div class="buttons">
+                        <?php
+                        if(doYouFollow($id,$thisId)){?>
+                        <input type="submit" value="Dejar de seguir" class="button">
+                        <?php }else{?>
+                        <input type="submit" value="Seguir" class="button">
+                        <?php }?>
+                    </form>
+                </div>
+                </div>
+                <?php }?>
+                    <!-- Seguidores y segiudos -->
+                    <div class="followers-following">
+                        <div class="followers">
+                        <a href="followers.php?id=<?php echo $thisId;?>"><h5>Seguidores</h5></a>
+                        <p><?php
+                        $querySeguidores = "Select count(*) from follows where userToFollow = $thisId";
+                        $res = mysqli_query($connect, $querySeguidores);
+                        $seguidores = mysqli_fetch_assoc($res);
+                        echo $seguidores["count(*)"];
+                        ?></p>
+                        </div>
+                        <div class="following">
+                        <a href="following.php?id=<?php echo $thisId;?>"><h5>Seguidos</h5></a>
+                        <p><?php
+                        $querySeguidos = "Select count(*) from follows where users_id= $thisId";
+                        $res = mysqli_query($connect, $querySeguidos);
+                        $seguidos = mysqli_fetch_assoc($res);
+                        echo $seguidos["count(*)"];
+                        ?></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
     </div>
-    <?php }?>
-        <!-- Seguidores y segiudos -->
-        <div>
-            <a href="followers.php?id=<?php echo $thisId;?>"><h5>Seguidores</h5></a>
-            <p><?php
-            $querySeguidores = "Select count(*) from follows where userToFollow = $thisId";
-            $res = mysqli_query($connect, $querySeguidores);
-            $seguidores = mysqli_fetch_assoc($res);
-            echo $seguidores["count(*)"];
-            ?></p>
-             <a href="following.php?id=<?php echo $thisId;?>"><h5>Seguidos</h5></a>
-            <p><?php
-            $querySeguidos = "Select count(*) from follows where users_id= $thisId";
-            $res = mysqli_query($connect, $querySeguidos);
-            $seguidos = mysqli_fetch_assoc($res);
-            echo $seguidos["count(*)"];
-            ?></p>
-        </div>
-   
-    <div class="Tweets del usuario">
-        <h4>Tweets</h4>
-            <?php
-                $tweetsQuery = "SELECT * FROM publications WHERE userId = $thisId order by createDate;";
-                $resTweets = mysqli_query($connect, $tweetsQuery);
-                if (mysqli_num_rows($resTweets) > 0) {
-                    $render->renderTweets($resTweets);
-                    } else {
-                        echo '<p>No hay tweets para mostrar.</p>';
-                    }
-            ?>
-               
     </div>
-    </section>
+    <div class="container">
+        <div class="margen"></div>
+                <div class="tweets">
+                        <?php
+                            $tweetsQuery = "SELECT * FROM publications WHERE userId = $thisId order by createDate;";
+                            $resTweets = mysqli_query($connect, $tweetsQuery);
+                            if (mysqli_num_rows($resTweets) > 0) {
+                                $render->renderTweets($resTweets);
+                                } else {
+                                    echo '<p>No hay tweets para mostrar.</p>';
+                                }
+                        ?>
+                        
+                </div>
+    </div>
+    <div class="container"></div>
 </body>
 </html>

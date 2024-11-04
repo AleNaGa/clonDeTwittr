@@ -33,31 +33,42 @@ $resFollowers = mysqli_query($connect, $queryFollow);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/follow.css">
     <title>Seguidos</title>
 </head>
 <body>
-    <header>
-        <a href="main.php">Home</a>
-        <a href="profile.php">Profile</a>
-        <a href="../scripts/logout_script.php">Logout</a>
+<header>
+        <nav>
+            <ul>
+               
+                <li> <a href="main.php">Home</a></li>
+                       <li> <a href="profile.php">Perfil</a></li>
+                <li> <a href="../scripts/logout_script.php">Logout</a></li>
+                <li> <a href="interactions.php">Interacciones</a></li>
+            </ul>
+        </nav>
     </header>
     <div class="main">
-        <h3>Seguidos</h3>
+    <div class="container"></div>
+        <div class="container">
+        <div class="listaSeguidores">
+        <div class="title">
+        <h3>Seguidores</h3>
         <?php
-            $querySeguidores = "Select count(*) from follows where userToFollow = $thisId";
+            $querySeguidores = "Select count(*) from follows where users_id = $thisId";
             $res = mysqli_query($connect, $querySeguidores);
             $seguidores = mysqli_fetch_assoc($res);
             echo $seguidores["count(*)"];
         ?>
-        <div class="listaSeguidores">
+        </div>
            <list>
             <?php
                 while($row =mysqli_fetch_assoc($resFollowers)){?>
-                    <ul>
-                        <a href="profile.php?id=<?php echo $row["id"];?>">
+                    <ul class="lista">
+                       <li> <a href="profile.php?id=<?php echo $row["id"];?>">
                             <?php echo $row["username"]; ?>
                         </a>
-                        <form action="../scripts/follow/seguir_script.php?id=<?php echo $row["id"];?>" method="POST">
+                        <form action="../scripts/follow/seguir_script.php?id=<?php echo $row["id"];?>" method="POST" class="button">
                             <!-- Saber si se siguen -->
                                 <?php
                                 if($id!=$row["id"]){
@@ -67,11 +78,14 @@ $resFollowers = mysqli_query($connect, $queryFollow);
                                     <input type="submit" value="Seguir">
                                     <?php }
                                 }?>
-                            </form>
+                            </form></li>
                     </ul>
                 <?php } ?>
            </list>
         </div>
     </div>
+    <div class="container"></div>
+    </div>
+
 </body>
 </html

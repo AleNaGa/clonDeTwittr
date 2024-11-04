@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="../css/singUpForm.css">
     <title>Registro</title>
 </head>
 <body>
-<form action="../scripts/singUp_script.php" method="POST">
+<div class="form-container">
+<form action="../scripts/singUp_script.php" method="POST" class="form">
             <fieldset>
                 <legend>Registrate</legend>
 
@@ -30,10 +33,11 @@
                     <div>
                         <input type="email" id="email" name="email" required />
                     </div>
-                <div >
-                    <input id="sendBttn" type="submit" value="Send" name="submit"/>
+                <div  class="buttons">
+                    <input id="sendBttn" type="submit" value="Registrarse" name="submit" class="button"/>
                 </div>
             </fieldset>
         </form>
+    </div>
 </body>
 </html>

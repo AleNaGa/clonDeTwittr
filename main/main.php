@@ -16,15 +16,17 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
     <title>Feed</title>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="profile.php">perfil</a></li>
-                <li><a href="../scripts/logout_script.php">Logout</a></li>
+                <li><a href="profile.php">Perfil</a></li>
                 <li> <a href="interactions.php">Interacciones</a></li>
+                <li><a href="../scripts/logout_script.php">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -58,27 +60,35 @@ session_start();
           
          ?>
     <section class="main">
+        <div class="container">
+        <div class="user-tuitear">
         <!-- El usuario-->
-            <div class ="user">
-                <h2><a href="profile.php?id=<?php echo $id;?>"><?php echo $username; ?></a></h2>
-                <div clas="descripcion">
-                    <p><?php if(empty($description)){
-                        echo "No hay descripción";
-                    }else{
-                        echo $description;
-                    } ?></p>
+            <div class="user-info">
+                <div class ="user">
+                    <h2><a href="profile.php?id=<?php echo $id;?>"><?php echo $username; ?></a></h2>
+                    <div class="descripcion">
+                        <p class="constrainText"><?php if(empty($description)){
+                            echo "No hay descripción";
+                        }else{
+                            echo $description;
+                        } ?></p>
+                    </div>
                 </div>
             </div>
         <!-- nuevo tweet -->
-        <div class="new-tweet">
-            <form action="../scripts/tweet/newTweet_script.php" method="POST">
-                <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres">
-                <input type="submit" value="Tweet">
-            </form>
+            <div class="new-tweet">
+                <form action="../scripts/tweet/newTweet_script.php" method="POST" class="tuitear">
+                    <input type="text" name="tweet" id="tweet" requiered pattern="^.{1,140}$" placeholder="Maximo 140 caracteres" class="text">
+                    <div class="button">
+                        <input type="submit" value="Tweet">
+                    </div>
+                </form>
+            </div>
+        </div>
         </div>
             <!--los tweets -->
+            <div class="container">
             <div class="tweets">
-                <h5>Tweets</h5>
                 <?php
                     if (mysqli_num_rows($resTweets) > 0) {
                     $render->renderTweets($resTweets);
@@ -87,17 +97,21 @@ session_start();
                     }
                 ?>
             </div>
+            </div>
+            <div class="container">
+                <div class="tweets">
+                    <h3>Te puede interesar...</h3>
+                    <!-- EL RESTO DE GENTE -->
+                        <?php
+                            if (mysqli_num_rows($resOtherTweets) > 0) {
+                                $render->renderTweets($resOtherTweets);
+                                } else {
+                                    echo '<div class="tweets">';
+                                    echo '<p class="noTweet">No hay tweets para mostrar.</p>';
+                                }
+                        ?>
+                </div>
+            </div>
     </section>
-    <div>
-        <!-- EL RESTO DE GENTE -->
-        <h5>Other Tweets</h5>
-               <?php
-                if (mysqli_num_rows($resOtherTweets) > 0) {
-                    $render->renderTweets($resOtherTweets);
-                    } else {
-                        echo '<p>No hay tweets para mostrar.</p>';
-                    }
-               ?>
-    </div>
 </body>
 </html>

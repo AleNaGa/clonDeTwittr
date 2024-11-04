@@ -16,6 +16,7 @@ $interactions = new renderInteractions($connect, $sessionID);
     <meta name="keywords" content="Interactions">
     <meta name="author" content="Alejandro">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/interacciones.css">
     <title>Interactions</title>
 </head>
 <body>
@@ -23,19 +24,24 @@ $interactions = new renderInteractions($connect, $sessionID);
         <nav>
             <ul>
                 <li><a href="main.php">Main</a></li>
-                <li><a href="profile.php">profile</a></li>
-                <li><a href="../scripts/logout_script.php">Log out</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="../scripts/logout_script.php">LogOut</a></li>
             </ul>
         </nav>
     </header>
-    <main>
+    <div class="main">
+        <div class="container">
         <div class="seguidores">
              <p><?php $interactions->recentFollowers()?></p>
         </div>
-        <div class="likes">
+        </div>
+        <div class="container">
+        <div class="likeList">
             <p> <?php $interactions->renderLikes()?></p>
         </div>
-    </main>
+        </div>
+        <div class="container"></div>
+    </div>
     
 </body>
 </html>

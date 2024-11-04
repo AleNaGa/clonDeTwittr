@@ -13,10 +13,10 @@ class Like{
         
     }
 function renderLike(){
-    echo '<form action="../scripts/tweet/darLike_script.php" method="post">
+    echo '<form class="buttons" action="../scripts/tweet/darLike_script.php" method="post">
     <input type="hidden" name="publicationId" value="'.$this->publicationId.'">
     <input type="hidden" name="redirectURL" value="'.$this->redirectURL.'">
-    <button type="submit" name="like" value="like">like</button>
+    <button class="button" type="submit" name="like" value="Like">Like</button>
     </form>';
 }
 
