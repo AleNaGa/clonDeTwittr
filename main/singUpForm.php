@@ -12,7 +12,7 @@
 <div class="form-container">
 <form action="../scripts/singUp_script.php" method="POST" class="form">
             <fieldset>
-                <legend>Registrate</legend>
+                <legend>Regístrate</legend>
 
                 <div>
                     <label for="username" >Username:</label>

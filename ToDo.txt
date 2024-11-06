@@ -1,10 +1,1 @@
-LIMPIAR LOS ERRORES
-    Hace una lista de errores y que aparezcan en un solo archivo en vez de tener un archivo por error
-Tuitear
-    Script
-FEED Siguiendo
-    Boton seguir
-Perfil
-    Editar perfil, descripción y nombre de usuario
-Pagina Seguidores
-Pagina Seguidos 
+
