@@ -42,7 +42,8 @@ class RenderInteractions{
                     echo '<a href="profile.php?id=' . $like["likerId"] . '">' . $like["user_who_liked"] . '</a>';
                     echo '<p>  le ha dado like a tu publicación: </p>';
                 }else{
-                    echo '<p> Tú le has dado like a tu publicación: </p>';
+                    echo '<a href="profile.php?id=' . $like["likerId"] . '"> Tu </a>';
+                    echo '<p> le has dado like a tu publicación: </p>';
                 }
                 echo '<div class="publicacion">' . $like["publication_text"] . '</div>';
             }
