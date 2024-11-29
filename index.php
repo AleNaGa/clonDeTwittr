@@ -18,7 +18,7 @@ include_once("scripts/connection/connection.php");
 
     <!-- formulario de login -->
     <div class="formContainer">
-    <form action="scripts/login_script.php" method="POST">
+    <form action="./scripts/login_script.php" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
             <div>
